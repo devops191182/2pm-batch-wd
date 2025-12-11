@@ -1,0 +1,7 @@
+---
+- name: creating pipeline
+  hosts: localhost
+  task: 
+   service: nginx 
+   status: started
+   command: ("run")
