@@ -2,6 +2,6 @@
 - name: creating pipeline
   hosts: localhost
   task: 
-   service: nginx 
-   status: started
+   service: apache
+   status: stopped
    command: ("run")
