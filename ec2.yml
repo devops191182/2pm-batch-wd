@@ -1,6 +1,8 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: creaing ec2
 
+
+
 Resources:
   WebAppSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -10,6 +12,10 @@ Resources:
         - IpProtocol: tcp
           FromPort: 22
           ToPort: 22
+          CidrIp: 0.0.0.0/0 # WARNING: Restrict this to your specific IP address for security.
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
           CidrIp: 0.0.0.0/0 # WARNING: Restrict this to your specific IP address for security.
 
   WebAppInstance:
@@ -22,5 +28,5 @@ Resources:
         - !Ref WebAppSecurityGroup
       Tags:
         - Key: Name
-          Value: 2pm-srv
+          Value: croma
 
