@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  MyIAMRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      # Trust policy: Defines who can assume this role (Required)
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: /
+      # Inline Policy: Embedded directly in this role
+      Policies:
+        - PolicyName: S3policy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 's3:GetObject'
+                  - 's3:ListBucket'
+                  - 's3:PutObject'
+                  - 's3:DeleteObject'
+                Resource: 
+                  - 'arn:aws:s3:::mum-b-251'
+                  - 'arn:aws:s3:::mum-b-251/*'
+      # Managed Policies: Attaches existing AWS or customer managed policies
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore'
+        - 'arn:aws:iam::aws:policy/AmazonEC2FullAccess'
